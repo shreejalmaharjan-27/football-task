@@ -5,6 +5,7 @@ import { db, connectDB } from '../functions/db'
 import Game from '../functions/schema';
 
 const importSamples = async () => {
+    // todo: only if it does not exist
     try {
         const data = await csv().fromFile(sample);
         await connectDB();
