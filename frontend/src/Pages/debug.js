@@ -9,7 +9,7 @@ export default function debug() {
             <p className="text-lg">This is a debug page.</p>
 
             <Icon name="help" />
-            <Input type="text" placeholder="Type something" />
+            <Input type="text" placeholder="Type something" label='Test Label' />
         </>
     )
 }
