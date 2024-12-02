@@ -30,13 +30,3 @@ jobs:
       - name: Test there is no error
         run: npm run lint
         working-directory: frontend
-
-      - name: Build the frontend
-        run: npm run build
-        working-directory: frontend
-
-      # Publish the frontend code
-      - name: Deploy to pages
-        uses: JamesIves/github-pages-deploy-action@v4
-        with:
-          folder: frontend/build
