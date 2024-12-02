@@ -1,24 +1,24 @@
-import logo from './logo.svg';
+import { Route, Routes } from 'react-router-dom';
 import './App.css';
+import NotFound from './Components/NotFound';
 
 function App() {
+  const context = require.context('./Pages', false, /\.js$/);
+  // special keys
+  const Pages = context.keys().map(key => context(key).default);
+
+  const specialNames = {
+    'Index': '/',
+  };
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Routes>
+      {Pages.map(Page => {
+        const name = Page.name;
+        const path = specialNames[name] || `/${name}`;
+        return <Route key={name} path={path} element={<Page />} />;
+      })}
+      <Route path="*" element={<NotFound />} />
+    </Routes>
   );
 }
 
