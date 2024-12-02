@@ -13,7 +13,6 @@ const importSamples = async () => {
     if (importData) {
       console.log("Data imported successfully");
     }
-    x;
 
     db.close();
   } catch (err) {
