@@ -18,7 +18,7 @@
   },
   "scripts": {
     "start": "PUBLIC_URL=/# react-scripts start",
-    "build": "PUBLIC_URL=/football-task/# react-scripts build",
+    "build": "PUBLIC_URL=https://shreejalmaharjan-27.github.io/football-task/# react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "eslint src/**/*.js"
