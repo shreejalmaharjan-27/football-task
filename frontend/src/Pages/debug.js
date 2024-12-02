@@ -1,5 +1,6 @@
 import React from 'react'
 import Icon from '../Components/Icon'
+import Input from '../Components/Input'
 
 export default function debug() {
     return (
@@ -8,6 +9,7 @@ export default function debug() {
             <p className="text-lg">This is a debug page.</p>
 
             <Icon name="help" />
+            <Input type="text" placeholder="Type something" />
         </>
     )
 }
