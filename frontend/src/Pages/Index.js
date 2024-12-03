@@ -10,10 +10,10 @@ const Index = () => {
             <p className='text-lg'>Choose your action</p>
             <div className='grid grid-cols-1 md:grid-cols-3 gap-4 my-4'>
                 <HomeCard title='Games' description='View all games records' link='/Games' />
-                <HomeCard title="Update Data" description="Update data" link="/UpdateData" />
+                <HomeCard title="Update Data" description="Update data" link="/Update" />
                 <HomeCard title='Teams' description='View all teams records' link='/Teams' />
                 <HomeCard title="Add Data to Teams" description="Add data to teams" link="/AddData" />
-                <HomeCard title='Delete Records' description='Delete records' link='/DeleteData' />
+                <HomeCard title='Delete Records' description='Delete records' link='/Delete' />
             </div>
         </div>
     );
