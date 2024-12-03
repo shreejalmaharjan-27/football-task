@@ -11,9 +11,7 @@ const bootstrap = async (app) => {
   const data = await csv().fromFile(__dirname + "/../samples/football.csv");
 
   if (!findData) {
-    const importData = await Game.insertMany(data);
-
-    console.log(importData);
+    await Game.insertMany(data);
   }
 
   const PORT = config.get("PORT");
