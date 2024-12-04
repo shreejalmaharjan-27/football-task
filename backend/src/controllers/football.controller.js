@@ -88,7 +88,7 @@ const getYearlyStats = async (req, res) => {
       },
     ]);
 
-    res.status(400).json({
+    res.status(200).json({
       message: "success",
       data: stats.length
         ? stats[0]
@@ -141,6 +141,9 @@ const getAvgGoals = async (req, res) => {
           loss: {
             $first: "$loss",
           },
+          goals_for: {
+            $first: "$goals_for",
+          },
           goals_against: {
             $first: "$goals_against",
           },
@@ -166,7 +169,7 @@ const getAvgGoals = async (req, res) => {
       },
     ]);
 
-    res.status(400).json({ message: "success", data });
+    res.status(200).json({ message: "success", data });
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
