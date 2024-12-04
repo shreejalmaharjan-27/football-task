@@ -116,12 +116,12 @@ const getWins = async (req, res) => {
 
 const getAvgGoals = async (req, res) => {
   try {
-    const { input } = req.query;
+    const { year } = req.query;
 
     const data = await Game.aggregate([
       {
         $match: {
-          year: +input,
+          year: +year,
         },
       },
       {
