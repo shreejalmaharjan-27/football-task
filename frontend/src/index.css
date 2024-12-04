@@ -34,3 +34,20 @@ a {
 .alert-warn {
   @apply text-yellow-800 bg-yellow-100 dark:bg-gray-800 dark:text-yellow-300;
 }
+
+.games-table {
+  @apply w-full table-auto;
+}
+
+.games-table th {
+  @apply text-left;
+}
+
+.games-table thead tr th,
+.games-table tbody td {
+  @apply p-2;
+}
+
+.games-table tbody tr:nth-child(odd) {
+  @apply bg-green-950;
+}
