@@ -8,7 +8,10 @@ import Filter from '../Components/Filter';
 const fetchGames = async (type, params) => {
     const types = {
         "all": "/",
-        "ByTeam": "/"
+        "ByTeam": "/",
+        "ByWins": "/get_wins/",
+        "ByYear": `get_stats/${+params.year}`,
+        'avgGoalFor': '/get_avg_goals/'
     }
 
 
@@ -22,29 +25,94 @@ const Games = () => {
     const [filterParams, setFilterParams] = useState({});
     const [filterType, setFilterType] = useState('all');
     useEffect(() => {
+        setIsLoading(true);
+        setGames([]);
         fetchGames(filterType, filterParams).then((data) => {
             setGames(data);
-            console.log(data)
         }).finally(() => {
             setIsLoading(false);
         });
     }, [filterType, filterParams]);
 
-    if (isLoading && games.length === 0) {
-        return <Loading />
-    }
 
-    return (
-        <>
+    const Heading = (tag) => {
+        return (
             <div className='text-2xl font-bold mb-2 flex justify-between items-center'>
-                <span className='self-start'>All Games</span>
+                <span className='self-start'>{tag}</span>
                 <div className='w-96 items-end flex flex-col'>
-                    <Button className="lg:w-20" onClick={() => setFilterIsOpen(!filterIsOpen)}>Filter</Button>
+                    <div className='flex flex-col items-end'>
+                        {filterType !== 'all' && <>
+                            <p>Active Filter: <span className='text-blue-500'>{filterType}</span></p>
+                            <div className='inline-flex flex-col items-end'>
+                                <span>Filter Criteria:</span>
+                                <span className='text-green-500'>{JSON.stringify(filterParams)}</span>
+                            </div>
+                        </>}
+
+                        {
+                            filterType === 'all' && <>
+                                <p>No filters active</p>
+                            </>
+                        }
+                        <Button className="lg:w-20" onClick={() => setFilterIsOpen(!filterIsOpen)}>Filter</Button>
+                    </div>
                     {
-                        filterIsOpen && <Filter setFilterParams={setFilterParams} setFilterType={setFilterType} />
+                        filterIsOpen && <Filter currentFilter={filterType} setFilterParams={setFilterParams} setFilterType={setFilterType} />
                     }
                 </div>
             </div>
+        )
+    }
+
+    // Show loading screen if the data is still loading 
+    // or if the filter type is not ByYear and games is not an array
+    // removing this will cause an error when trying to map the games 
+    if (isLoading || (filterType !== 'ByYear' && !Array.isArray(games))) {
+        return <Loading />
+    }
+
+    if (filterType === 'ByYear') {
+        return (
+            <>
+                {Heading(`Yearly Stats for ${filterParams.year}`)}
+                <div className="border border-gray-400 rounded-2xl overflow-hidden">
+                    <table className="games-table">
+                        <thead>
+                            <tr>
+                                <th>
+                                    Total Games Played
+                                </th>
+                                <th>
+                                    Draw
+                                </th>
+                                <th>
+                                    Wins
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    {games.totalGamesPlayed}
+                                </td>
+                                <td>
+                                    {games.totalDraws}
+                                </td>
+                                <td>
+                                    {games.totalWins}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </>
+        )
+    }
+
+
+    return (
+        <>
+            {Heading('All Games')}
             <div className="border border-gray-400 rounded-2xl">
                 <table className="games-table">
                     <thead>
@@ -79,12 +147,28 @@ const Games = () => {
                             <th>
                                 Game Year
                             </th>
+                            {
+                                filterType === 'avgGoalFor' && (
+                                    <th>
+                                        Average Goals For
+                                    </th>
+                                )
+                            }
                         </tr>
 
                     </thead>
                     <tbody>
                         {
-                            games.map((game, index) => {
+                            games.length === 0 && (
+                                <tr>
+                                    <td colSpan={10} className="text-center">
+                                        No Data Found
+                                    </td>
+                                </tr>
+                            )
+                        }
+                        {
+                            games.length !== 0 && games.map((game, index) => {
                                 return (
                                     <tr key={index}>
                                         <td>
@@ -117,6 +201,13 @@ const Games = () => {
                                         <td>
                                             {game.year}
                                         </td>
+                                        {
+                                            filterType === 'avgGoalFor' && (
+                                                <td>
+                                                    {game.avg_goals_for}
+                                                </td>
+                                            )
+                                        }
                                     </tr>
                                 )
                             })
