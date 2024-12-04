@@ -1,7 +1,24 @@
-const { connect } = require("mongoose");
+const mongoose = require("mongoose");
 const config = require("config");
 const Game = require("../schemas/Game.schema");
 const csv = require("csvtojson");
+
+async function connect(uri) {
+  try {
+    const options = {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      authSource: 'admin' // Explicitly set auth database
+    };
+
+    console.log('Attempting MongoDB connection...');
+    await mongoose.connect(uri, options);
+    console.log('MongoDB connected successfully');
+  } catch (error) {
+    console.error('MongoDB connection error:', error.message);
+    throw error;
+  }
+}
 
 const bootstrap = async (app) => {
   await connect(config.get("MONGO_URI"));
