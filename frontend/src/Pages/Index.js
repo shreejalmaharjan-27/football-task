@@ -1,22 +1,69 @@
-import React from 'react';
-import useTitle from '../Components/SetTitle';
-import HomeCard from '../Components/HomeCard';
+import React from "react";
+import useTitle from "../Components/SetTitle";
+import HomeCard from "../Components/HomeCard";
+
+import gamewrapper from "../Assets/gamewrapper.jpg";
+import teamwrapper from "../Assets/teamwrapper.jpg";
+import addwrapper from "../Assets/addwrappper.jpg";
+import updatewrapper from "../Assets/updatewrapper.jpg";
+import deletewrapper from "../Assets/deletewrapper.jpg";
 
 const Index = () => {
-    useTitle('Home');
-    return (
-        <div className='w-full rounded-2xl border border-gray-400 p-4'>
-            <h1 className='text-3xl font-bold'>Home</h1>
-            <p className='text-lg'>Choose your action</p>
-            <div className='grid grid-cols-1 md:grid-cols-3 gap-4 my-4'>
-                <HomeCard title='Games' description='View all games records' link='/Games' />
-                <HomeCard title="Update Data" description="Update data" link="/Update" />
-                <HomeCard title='Teams' description='View all teams records' link='/Teams' />
-                <HomeCard title="Add Data to Teams" description="Add data to teams" link="/AddData" />
-                <HomeCard title='Delete Records' description='Delete records' link='/Delete' />
-            </div>
+  useTitle("Home");
+  return (
+    <div className="text-white min-h-screen p-8">
+      <div className="bg-green-50 rounded-3xl bg-clip-padding backdrop-filter backdrop-blur-md bg-opacity-10 p-14 shadow-lg">{/*gradient bg*/}
+        <div className="text-center mb-12 ">
+          <h1 className="text-gray text-3xl font-bold ">
+            Welcome to{" "}
+            <span className="text-yellow text-4xl ">FOOTBALL MANAGER</span>
+          </h1>{" "}
+          {/*need to come up with name for app*/}
+          <p className="text-gray mt-4 text-lg">
+            Manage your teams, track games, and stay updated with the latest
+            football stats.
+          </p>
         </div>
-    );
+        <div className="grid gap-x-0 gap-y-8 grid-cols-3  ">
+          <HomeCard
+            title="Games"
+            description="View all games records"
+            link="/Games"
+            bgwrapper={gamewrapper}
+            icon_name="sports_soccer"
+          />
+          <HomeCard
+            title="Update Data"
+            description="Update data"
+            link="/UpdateData"
+            bgwrapper={updatewrapper}
+            icon_name="update"
+          />
+          <HomeCard
+            title="Teams"
+            description="View all teams records"
+            link="/Teams"
+            bgwrapper={teamwrapper}
+            icon_name="groups"
+          />
+          <HomeCard
+            title="Add Data to Teams"
+            description="Add data to teams"
+            link="/AddData"
+            bgwrapper={addwrapper}
+            icon_name="add_box"
+          />
+          <HomeCard
+            title="Delete Records"
+            description="Delete records"
+            link="/DeleteData"
+            bgwrapper={deletewrapper}
+            icon_name="person_remove"
+          />
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default Index;
