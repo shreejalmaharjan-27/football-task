@@ -7,7 +7,7 @@ const Input = (props) => {
                 )
             }
             <input
-                className={`${props.className} border border-gray-400 rounded-lg px-2 py-1 text-lg`}
+                className={`${props.className} border border-gray-400 rounded-lg px-2 py-1 text-lg text-black`}
                 {...props}
             />
         </div>
