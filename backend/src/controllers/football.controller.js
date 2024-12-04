@@ -14,7 +14,15 @@ const postData = async (req, res) => {
 
 const getData = async (req, res) => {
   try {
-    const data = await Game.find();
+    const { team } = req.query;
+    let data = null;
+    if (team) {
+      data = await Game.find({
+        team
+      });
+    } else {
+      data = await Game.find();
+    }
     res.status(200).json({ message: "Success", data });
   } catch (error) {
     res.status(400).json({ message: error.message });
