@@ -7,7 +7,7 @@ const Randomize = ({ parentInputElStr }) => {
         inputs.forEach((el) => {
             switch (el.type) {
                 case 'text':
-                    el.value = faker.person.fullName();
+                    el.value = faker.location.country();
                     break;
 
                 case 'number':
@@ -23,6 +23,7 @@ const Randomize = ({ parentInputElStr }) => {
 
                 default:
                 //
+
 
             }
         });
