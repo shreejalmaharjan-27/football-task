@@ -175,6 +175,16 @@ const getAvgGoals = async (req, res) => {
   }
 };
 
+const AllTeams = async (req, res) => {
+  try {
+    const data = await Game.distinct("team");
+
+    res.status(200).json({ message: "success", data });
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+};
+
 module.exports = {
   getData,
   postData,
@@ -183,4 +193,5 @@ module.exports = {
   getYearlyStats,
   getWins,
   getAvgGoals,
+  AllTeams,
 };
