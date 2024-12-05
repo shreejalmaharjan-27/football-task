@@ -16,7 +16,7 @@ const Index = () => {
         <div className="text-center mb-12 ">
           <h1 className="text-gray text-3xl font-bold ">
             Welcome to{" "}
-            <span className="text-yellow text-4xl ">FOOTBALL MANAGER</span>
+            <span className="text-[#FFEB3B] text-4xl ">FOOTBALL MANAGER</span>
           </h1>{" "}
           {/*need to come up with name for app*/}
           <p className="text-gray mt-4 text-lg">
