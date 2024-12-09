@@ -3,6 +3,7 @@ import Axios from '../Plugins/Axios'
 import Loading from '../Components/Loading';
 import Button from '../Components/Button'
 import Filter from '../Components/Filter';
+import TableActions from '../Components/TableActions';
 
 
 const fetchGames = async (type, params) => {
@@ -24,6 +25,7 @@ const Games = () => {
     const [filterIsOpen, setFilterIsOpen] = useState(false);
     const [filterParams, setFilterParams] = useState({});
     const [filterType, setFilterType] = useState('all');
+    const [uniqueYears, setUniqueYears] = useState([]);
     useEffect(() => {
         setIsLoading(true);
         setGames([]);
@@ -33,6 +35,10 @@ const Games = () => {
             setIsLoading(false);
         });
     }, [filterType, filterParams]);
+
+    useEffect(() => {
+        games.length > 0 && setUniqueYears([...new Set(games.map(game => game.year))]);
+    }, [games]);
 
 
     const Heading = (tag) => {
@@ -57,7 +63,7 @@ const Games = () => {
                         <Button className="lg:w-20" onClick={() => setFilterIsOpen(!filterIsOpen)}>Filter</Button>
                     </div>
                     {
-                        filterIsOpen && <Filter currentFilter={filterType} setFilterParams={setFilterParams} setFilterType={setFilterType} />
+                        filterIsOpen && <Filter currentFilter={filterType} setFilterParams={setFilterParams} setFilterType={setFilterType} options={uniqueYears} />
                     }
                 </div>
             </div>
@@ -154,6 +160,10 @@ const Games = () => {
                                     </th>
                                 )
                             }
+
+                            <th>
+                                Actions
+                            </th>
                         </tr>
 
                     </thead>
@@ -161,7 +171,7 @@ const Games = () => {
                         {
                             games.length === 0 && (
                                 <tr>
-                                    <td colSpan={10} className="text-center">
+                                    <td colSpan={11} className="text-center">
                                         No Data Found
                                     </td>
                                 </tr>
@@ -208,6 +218,9 @@ const Games = () => {
                                                 </td>
                                             )
                                         }
+                                        <td>
+                                            <TableActions id={game._id} />
+                                        </td>
                                     </tr>
                                 )
                             })
