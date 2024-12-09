@@ -36,6 +36,21 @@ const DeleteData = () => {
     }, []);
 
 
+    useEffect(() => {
+        // if the id param is present in the url, set the team data
+        const urlParams = new URLSearchParams(window.location.search);
+        const id = urlParams.get('id');
+
+        if (id && teams.length > 0) {
+            // check if the id is valid
+            const team = teams.find(team => team._id === id);
+            if (team) {
+                setData(team);
+            }
+        }
+    }, [teams]);
+
+
     useTitle('Delete Team Data');
 
     const setTeamData = (id) => {
@@ -79,7 +94,7 @@ const DeleteData = () => {
                 <option value=''>Select Team</option>
                 {
                     teams.map((team, index) => (
-                        <option key={index} value={team._id}>{team.team} - {team.year}</option>
+                        <option key={index} selected={team._id === data._id} value={team._id}>{team.team} - {team.year}</option>
                     ))
                 }
             </Select>
