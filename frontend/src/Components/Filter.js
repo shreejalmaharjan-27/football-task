@@ -9,7 +9,8 @@ import AverageGoals from './Filters/AverageGoals';
 export default function Filter({
     setFilterParams,
     setFilterType,
-    currentFilter
+    currentFilter,
+    options
 }) {
     const [byTeamIsOpen, setByTeamIsOpen] = useState(false);
     const [byWinsIsOpen, setByWinsIsOpen] = useState(false);
@@ -67,7 +68,7 @@ export default function Filter({
                 byWinsIsOpen && <ByWins text={text} setText={setText} submit={() => submit('byWins')} />
             }
             {
-                yearlyIsOpen && <YearlyStats text={text} setText={setText} submit={() => submit('byYear')} />
+                yearlyIsOpen && <YearlyStats text={text} setText={setText} submit={() => submit('byYear')} options={options} />
             }
 
             {
